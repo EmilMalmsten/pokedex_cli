@@ -4,6 +4,8 @@ import (
     "bufio"
     "fmt"
     "os"
+    "os/exec"
+    "runtime"
 )
 
 type cliCommand struct {
@@ -24,18 +26,31 @@ func getCliCommands() map[string]cliCommand {
             description: "Exit the Pokedex",
             callback: commandExit,
         },
+        "map": {
+            name: "map",
+            description: "Display 20 new areas",
+            callback: commandMap,
+        },
+        "mapb": {
+            name: "mapb",
+            description: "Display the last 20 areas",
+            callback: commandMapb,
+        },
     }
 }
 
-func commandHelp() error {
-    fmt.Println("here is some help")
-    return nil
-}
 
-func commandExit() error {
-    fmt.Println("Exiting...")
-    os.Exit(0)
-    return nil
+func clearTerminal() {
+    var cmd *exec.Cmd
+
+    if runtime.GOOS == "windows" {
+        cmd = exec.Command("cmd", "/c", "cls")
+    } else {
+        cmd = exec.Command("clear")
+    }
+
+    cmd.Stdout = os.Stdout
+    cmd.Run()
 }
 
 func startRepl() {
@@ -43,7 +58,6 @@ func startRepl() {
     cliCommands := getCliCommands()
 
     for {
-
         fmt.Println("")
         fmt.Println("Welcome to the pokedex!")
         fmt.Println("Usage:")
@@ -59,6 +73,7 @@ func startRepl() {
         scanner.Scan()
         input := scanner.Text()
 
+        clearTerminal()
         err := cliCommands[input].callback()
         if err != nil {
             fmt.Println("Error: ", err)
