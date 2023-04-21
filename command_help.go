@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func commandHelp() error {
+func commandHelp(appd *appData) error {
     fmt.Println("here is some help")
     return nil
 }

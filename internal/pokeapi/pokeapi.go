@@ -21,10 +21,15 @@ type LocationAreasResp struct {
 	} `json:"results"`
 }
 
-func ListLocationAreas() (LocationAreasResp, error) {
+func ListLocationAreas(pageURL *string) (LocationAreasResp, error) {
     locationAreasResp := LocationAreasResp{}
+
     endpoint := "/location-area"
     fullURL := baseURL + endpoint
+    if pageURL != nil {
+        fullURL = *pageURL
+    }
+
     res, err := http.Get(fullURL)
     if err != nil {
         return locationAreasResp, err

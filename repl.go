@@ -11,9 +11,8 @@ import (
 type cliCommand struct {
     name string
     description string
-    callback func() error
+    callback func(*appData) error
 }
-
 func getCliCommands() map[string]cliCommand {
     return map[string]cliCommand{
         "help": {
@@ -53,7 +52,7 @@ func clearTerminal() {
     cmd.Run()
 }
 
-func startRepl() {
+func startRepl(appd *appData) {
     scanner := bufio.NewScanner(os.Stdin)
     cliCommands := getCliCommands()
 
@@ -74,7 +73,7 @@ func startRepl() {
         input := scanner.Text()
 
         clearTerminal()
-        err := cliCommands[input].callback()
+        err := cliCommands[input].callback(appd)
         if err != nil {
             fmt.Println("Error: ", err)
         }

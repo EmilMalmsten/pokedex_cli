@@ -1,6 +1,12 @@
 package main
 
+type appData struct {
+    nextLocationAreaUrl *string
+    prevLocationAreaUrl *string
+}
+
 func main() {
-    startRepl()
+    appd := appData{}
+    startRepl(&appd)
 }
 
