@@ -1,6 +1,7 @@
 package pokecache
 
 import (
+	"fmt"
 	"time"
 )
 
@@ -22,6 +23,7 @@ func NewCache(interval time.Duration) Cache {
 }
 
 func (c *Cache) Add(key string, val []byte) {
+	fmt.Printf("adding cache with key %s\n", key)
 	c.cache[key] = cacheEntry{
 		createdAt: time.Now().UTC(),
 		val:       val,
@@ -29,8 +31,10 @@ func (c *Cache) Add(key string, val []byte) {
 }
 
 func (c *Cache) Get(key string) ([]byte, bool) {
+	fmt.Printf("trying to find data with key %s\n", key)
 	entry, ok := c.cache[key]
 	if !ok {
+		fmt.Println("data not found")
 		return []byte{}, false
 	}
 	return entry.val, true

@@ -1,12 +1,12 @@
 package main
 
 import (
-    "fmt"
-    "os"
+	"fmt"
+	"os"
 )
 
-func commandExit(appd *appData) error {
-    fmt.Println("Exiting...")
-    os.Exit(0)
-    return nil
+func commandExit(cfg *config) error {
+	fmt.Println("Exiting...")
+	os.Exit(0)
+	return nil
 }
