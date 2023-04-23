@@ -97,7 +97,6 @@ func startRepl(cfg *config) {
 			fmt.Println("unknown command")
 			continue
 		}
-
 	}
 }
 
