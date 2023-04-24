@@ -7,14 +7,13 @@ import (
 )
 
 func commandExplore(cfg *config, args ...string) error {
-	fmt.Println(args)
-
 	if len(args) != 1 {
 		return errors.New("you must provide an area")
 	}
 
 	area := args[0]
 
+	fmt.Printf("Exploring %s area...", area)
 	locationResp, err := cfg.pokeapiClient.ExploreArea(area)
 	if err != nil {
 		log.Fatal(err)
